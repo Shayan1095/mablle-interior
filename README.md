@@ -91,3 +91,11 @@ The first visit in a tab session shows a lightweight ivory Mablle preloader. It 
 Open `/?view=shop` from Collections or the header search icon. The dedicated browse page has a large search field, suggested phrases, category/material/maximum-price filters, removable filter chips, sorting, PKR prices and product recommendations. Product dialogs, saved pieces and demo inquiries work across both pages. Search supports multiword matches, plural furniture names, colors/finishes and common synonyms (for example, “green couch” and “wooden table”). Results update as you type; Search brings the results into view. Mobile filters collapse after Show pieces.
 
 The URL stores the selected filters and product, preserving shareable searches and browser history. Recommendations use the local sample catalog, respect category/material/budget constraints, and are explicitly separated from exact search results. They are editorial suggestions, not inferred customer profiling. No extra dependency or external recommendation service was added.
+
+## Link previews
+
+Public preview: https://mablle-interior.vercel.app/.
+
+Open Graph and large-image social-card tags live in the initial HTML, so link crawlers can read the interior photograph, title and description without executing React. The preview uses the existing 1280 × 960 optimized hero JPEG (about 196 kB), with image type/dimensions/alt text and a canonical URL. Browse/product query links currently share the same brand preview.
+
+The build uses SITE_URL when explicitly configured, otherwise Vercel's VERCEL_PROJECT_PRODUCTION_URL, otherwise the verified public URL above. The production origin is used for preview images even on a temporary deployment. Set SITE_URL to an HTTPS custom domain if an explicit override is needed, then redeploy. Sharing apps maintain their own preview caches; already-shared messages may retain older metadata.
