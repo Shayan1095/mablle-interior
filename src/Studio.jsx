@@ -1,0 +1,10 @@
+import { imageProps } from './images';
+import { useRef } from 'react';
+import { ArrowUpRight } from 'lucide-react';
+import { useReveal } from './motion';
+
+export default function Studio({ onConsult }) {
+  const ref = useRef(null);
+  useReveal(ref);
+  return <section id="studio" className="studio section-pad" ref={ref} aria-labelledby="studio-heading"><div className="studio-top" data-reveal><p className="eyebrow"><span className="section-index">04</span> THE MABLLE POINT OF VIEW</p><span className="studio-coordinate">THOUGHTFUL BY NATURE</span></div><div className="studio-statement" data-reveal><span className="statement-mark">“</span><h2 id="studio-heading">We believe the most beautiful<br className="desktop-break" /> spaces are the ones that<br className="desktop-break" /> make you feel <em>something.</em></h2></div><div className="studio-grid"><div className="studio-image" data-reveal><img {...imageProps('studio', 'editorial')} alt="A carefully composed dining space with timber, stone and dark metal details" loading="lazy" /><span>TEXTURE. LIGHT. A LITTLE SOUL.</span></div><div className="studio-copy" data-reveal><p className="eyebrow">THE DETAILS MAKE THE DIFFERENCE</p><h3>Material matters.<br />Feeling follows.</h3><p>The warmth of timber. The quiet texture of linen. The way light rests on a favorite chair. These are the details that turn a place into your place.</p><p>Mablle brings furniture and interior ideas into one considered conversation, with a simple point of view: a home should feel as good as it looks.</p><div className="material-palette" aria-label="Concept material palette: warm timber, woven linen, quiet stone"><span><i className="material-wood" />Warm timber</span><span><i className="material-linen" />Woven linen</span><span><i className="material-stone" />Quiet stone</span></div><button className="text-link" onClick={() => onConsult('A conversation about the Mablle approach')}>Let's find your perspective <ArrowUpRight size={18} /></button></div></div></section>;
+}

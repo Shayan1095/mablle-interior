@@ -1,0 +1,222 @@
+{
+  "chair": {
+    "width": 900,
+    "height": 1352,
+    "originalBytes": 53459,
+    "variants": [
+      {
+        "width": 240,
+        "src": "/images/optimized/chair-240.jpg",
+        "bytes": 5152
+      },
+      {
+        "width": 480,
+        "src": "/images/optimized/chair-480.jpg",
+        "bytes": 14285
+      },
+      {
+        "width": 900,
+        "src": "/images/optimized/chair-900.jpg",
+        "bytes": 51169
+      }
+    ]
+  },
+  "dining": {
+    "width": 900,
+    "height": 506,
+    "originalBytes": 92470,
+    "variants": [
+      {
+        "width": 240,
+        "src": "/images/optimized/dining-240.jpg",
+        "bytes": 8401
+      },
+      {
+        "width": 480,
+        "src": "/images/optimized/dining-480.jpg",
+        "bytes": 24698
+      },
+      {
+        "width": 900,
+        "src": "/images/optimized/dining-900.jpg",
+        "bytes": 78626
+      }
+    ]
+  },
+  "hero": {
+    "width": 2200,
+    "height": 1650,
+    "originalBytes": 639736,
+    "variants": [
+      {
+        "width": 640,
+        "src": "/images/optimized/hero-640.jpg",
+        "bytes": 63133
+      },
+      {
+        "width": 1280,
+        "src": "/images/optimized/hero-1280.jpg",
+        "bytes": 195675
+      },
+      {
+        "width": 1920,
+        "src": "/images/optimized/hero-1920.jpg",
+        "bytes": 374707
+      }
+    ]
+  },
+  "lamp": {
+    "width": 900,
+    "height": 1350,
+    "originalBytes": 65892,
+    "variants": [
+      {
+        "width": 240,
+        "src": "/images/optimized/lamp-240.jpg",
+        "bytes": 5992
+      },
+      {
+        "width": 480,
+        "src": "/images/optimized/lamp-480.jpg",
+        "bytes": 16111
+      },
+      {
+        "width": 900,
+        "src": "/images/optimized/lamp-900.jpg",
+        "bytes": 61963
+      }
+    ]
+  },
+  "lounge": {
+    "width": 900,
+    "height": 1125,
+    "originalBytes": 159599,
+    "variants": [
+      {
+        "width": 240,
+        "src": "/images/optimized/lounge-240.jpg",
+        "bytes": 7402
+      },
+      {
+        "width": 480,
+        "src": "/images/optimized/lounge-480.jpg",
+        "bytes": 27853
+      },
+      {
+        "width": 900,
+        "src": "/images/optimized/lounge-900.jpg",
+        "bytes": 140231
+      }
+    ]
+  },
+  "project": {
+    "width": 1400,
+    "height": 933,
+    "originalBytes": 228598,
+    "variants": [
+      {
+        "width": 480,
+        "src": "/images/optimized/project-480.jpg",
+        "bytes": 32105
+      },
+      {
+        "width": 960,
+        "src": "/images/optimized/project-960.jpg",
+        "bytes": 95819
+      },
+      {
+        "width": 1400,
+        "src": "/images/optimized/project-1400.jpg",
+        "bytes": 204045
+      }
+    ]
+  },
+  "room": {
+    "width": 1400,
+    "height": 788,
+    "originalBytes": 193636,
+    "variants": [
+      {
+        "width": 480,
+        "src": "/images/optimized/room-480.jpg",
+        "bytes": 23800
+      },
+      {
+        "width": 960,
+        "src": "/images/optimized/room-960.jpg",
+        "bytes": 75984
+      },
+      {
+        "width": 1400,
+        "src": "/images/optimized/room-1400.jpg",
+        "bytes": 169532
+      }
+    ]
+  },
+  "sofa": {
+    "width": 900,
+    "height": 600,
+    "originalBytes": 56559,
+    "variants": [
+      {
+        "width": 240,
+        "src": "/images/optimized/sofa-240.jpg",
+        "bytes": 5324
+      },
+      {
+        "width": 480,
+        "src": "/images/optimized/sofa-480.jpg",
+        "bytes": 14870
+      },
+      {
+        "width": 900,
+        "src": "/images/optimized/sofa-900.jpg",
+        "bytes": 49364
+      }
+    ]
+  },
+  "studio": {
+    "width": 1400,
+    "height": 933,
+    "originalBytes": 217982,
+    "variants": [
+      {
+        "width": 480,
+        "src": "/images/optimized/studio-480.jpg",
+        "bytes": 29451
+      },
+      {
+        "width": 960,
+        "src": "/images/optimized/studio-960.jpg",
+        "bytes": 90195
+      },
+      {
+        "width": 1400,
+        "src": "/images/optimized/studio-1400.jpg",
+        "bytes": 198043
+      }
+    ]
+  },
+  "table": {
+    "width": 900,
+    "height": 1200,
+    "originalBytes": 193388,
+    "variants": [
+      {
+        "width": 240,
+        "src": "/images/optimized/table-240.jpg",
+        "bytes": 14728
+      },
+      {
+        "width": 480,
+        "src": "/images/optimized/table-480.jpg",
+        "bytes": 48147
+      },
+      {
+        "width": 900,
+        "src": "/images/optimized/table-900.jpg",
+        "bytes": 174067
+      }
+    ]
+  }
+}

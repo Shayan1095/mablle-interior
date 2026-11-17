@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#181916" />
+    <meta name="description" content="Explore considered furniture and interior design with Mablle Interiors. Browse a curated concept collection in PKR and plan a space that feels like you." />
+    <title>Mablle Interiors — Spaces with soul.</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      html{scrollbar-gutter:stable}body{margin:0}.is-booting{overflow:hidden}
+      #mablle-preloader{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;background:#eeeae2;color:#293322;opacity:1;transition:opacity .18s ease;pointer-events:auto}
+      #mablle-preloader.is-leaving{opacity:0;pointer-events:none}
+      .boot-brand{text-align:center;animation:boot-breathe 1.2s ease-in-out infinite alternate}
+      .boot-brand svg{width:36px;height:38px;display:block;margin:0 auto 20px}
+      .boot-wordmark{display:block;font:400 46px/1.1 Arial,sans-serif;letter-spacing:-3px}
+      .boot-subtitle{display:block;margin-top:12px;font:400 9px/1.4 Arial,sans-serif;letter-spacing:5px;padding-left:5px}
+      .boot-label{position:absolute;bottom:36px;left:20px;right:20px;text-align:center;font:400 10px/1.5 Arial,sans-serif;letter-spacing:1px;color:#59624f}
+      #boot-fallback{padding:40px;font:16px/1.7 Arial,sans-serif;background:#eeeae2;color:#293322}#boot-fallback a{color:inherit;text-decoration:underline}
+      @keyframes boot-breathe{from{opacity:.65}to{opacity:1}}
+      @media(prefers-reduced-motion:reduce){.boot-brand{animation:none}#mablle-preloader{transition:none}}
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&amp;family=DM+Sans:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600&amp;display=swap" media="print" onload="this.media='all'" />
+    <link rel="preload" as="image" href="/images/optimized/hero-1920.jpg" imagesrcset="/images/optimized/hero-640.jpg 640w, /images/optimized/hero-1280.jpg 1280w, /images/optimized/hero-1920.jpg 1920w" imagesizes="100vw" fetchpriority="high" />
+  </head>
+  <body>
+    <div id="mablle-preloader" role="status" aria-live="polite" aria-label="Loading Mablle Interiors">
+      <div class="boot-brand" aria-hidden="true"><svg viewBox="0 0 34 36"><path d="M2 32V4h6l9 15L26 4h6v28h-6V15L17 30 8 15v17Z" fill="currentColor" /></svg><span class="boot-wordmark">mablle</span><span class="boot-subtitle">INTERIORS</span></div>
+      <span class="boot-label" aria-hidden="true">A considered beginning.</span>
+    </div>
+    <div id="root"></div>
+    <div id="boot-fallback" hidden><p>The page is taking longer than expected.</p><a href="">Reload Mablle Interiors</a></div>
+    <script src="/boot.js" onerror="document.getElementById('mablle-preloader').remove();document.getElementById('boot-fallback').hidden=false"></script>
+    <noscript><style>#mablle-preloader{display:none}</style><p style="padding:32px;font-family:sans-serif">Please enable JavaScript to explore the Mablle Interiors interactive concept collection.</p></noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.sites-local/
+*.log
+.qa/
+.vercel/
+.openai/
+.env
+.env.*
+!.env.example
+asset-contact-sheet.jpg
