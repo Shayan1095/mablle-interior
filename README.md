@@ -85,3 +85,9 @@ The first visit in a tab session shows a lightweight ivory Mablle preloader. It 
 `public/boot.js` has offline lifecycle coverage for cached/slow/failed images, repeated visits, unavailable storage, late startup, missing application code and reduced motion. Browser visual verification remains pending under the saved preview permission.
 
 `vercel.json` prepares the Vite build, output directory and fingerprinted-asset caching. See VERCEL_DEPLOYMENT.md for project-root settings and review steps. No Vercel deployment has been performed.
+
+## Search and browse
+
+Open `/?view=shop` from Collections or the header search icon. The dedicated browse page has a large search field, suggested phrases, category/material/maximum-price filters, removable filter chips, sorting, PKR prices and product recommendations. Product dialogs, saved pieces and demo inquiries work across both pages. Search supports multiword matches, plural furniture names, colors/finishes and common synonyms (for example, “green couch” and “wooden table”). Results update as you type; Search brings the results into view. Mobile filters collapse after Show pieces.
+
+The URL stores the selected filters and product, preserving shareable searches and browser history. Recommendations use the local sample catalog, respect category/material/budget constraints, and are explicitly separated from exact search results. They are editorial suggestions, not inferred customer profiling. No extra dependency or external recommendation service was added.

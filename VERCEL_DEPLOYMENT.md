@@ -22,3 +22,5 @@ Hero and scroll entrances wait for the loader to finish. Scroll entrances begin 
 The Guide and forms remain front-end demonstrations. No messages, bookings or payments are sent. This Vercel preparation does not use the earlier unpublished Sites registration.
 
 Reference: [Vercel project configuration](https://vercel.com/docs/project-configuration).
+
+The dedicated browse page is available at `/?view=shop`, including shared queries such as `/?view=shop&q=lounge+chairs&budget=100000`. This also uses the root document, so no additional rewrite is required. Include browse filters, recommendations, empty results and product Back/Forward navigation in the deployed preview review.

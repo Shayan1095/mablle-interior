@@ -55,3 +55,22 @@ const customBudget = renderToStaticMarkup(<BudgetSelect value="80000" onChange={
 assert.ok(customBudget.includes('<option value="80000" selected="">Up to PKR 80,000</option>'));
 console.log('PASS: guide accessibility, service control targets and exact custom-budget selection');
 writeFileSync('.qa/static-render.html', markup);
+
+globalThis.location = { search: '?view=shop&q=lounge+chairs&budget=100000', href: 'https://example.invalid/?view=shop&q=lounge+chairs&budget=100000' };
+const browse = renderToStaticMarkup(<App />);
+const browseIds = [...browse.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+assert.equal(new Set(browseIds).size, browseIds.length);
+assert.equal((browse.match(/<h1\b/g) || []).length, 1);
+assert.ok(browse.includes('role="search"') && browse.includes('id="browse-query"'));
+assert.ok(browse.includes('value="lounge chairs"') && browse.includes('1 piece'));
+assert.ok(browse.includes('Arc Lounge Chair') && browse.includes('PKR 89,000'));
+assert.ok(browse.includes('A few pieces to go with it.') && browse.includes('href="/#home"'));
+assert.ok(!browse.includes('class="hero"'), 'Browse must be its own page, not a second hidden homepage');
+for (const [, target] of browse.matchAll(/href="#([^"]+)"/g)) assert.ok(browseIds.includes(target), `Broken browse anchor #${target}`);
+for (const [, image] of browse.matchAll(/<img[^>]*src="(\/images\/[^\"]+)"/g)) assert.ok(existsSync(path.join(process.cwd(), 'public', image)), `Missing browse image ${image}`);
+writeFileSync('.qa/browse-render.html', browse);
+globalThis.location.search = '?view=shop&q=unknown&budget=10000';
+const emptyBrowse = renderToStaticMarkup(<App />);
+assert.ok(emptyBrowse.includes('No pieces match this search') && emptyBrowse.includes('0 pieces'));
+assert.ok(!emptyBrowse.includes('id="browse-edit-heading"'), 'No recommendations should exceed a restrictive budget');
+console.log('PASS: dedicated browse page, restored query, prices, recommendations, empty results and navigation targets');

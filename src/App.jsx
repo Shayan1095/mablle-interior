@@ -13,6 +13,8 @@ import Studio from './Studio';
 import Contact, { Footer } from './Contact';
 import { defaults, money, products, readFilters, variantPrice } from './catalog';
 import { captureProductOrigin } from './product-transition';
+import BrowsePage from './BrowsePage';
+import { browseURL, isBrowsePage } from './browse-model';
 const loadOverlay = () => import('./Overlay');
 const Overlay = lazy(loadOverlay);
 
@@ -49,11 +51,14 @@ export default function App() {
       if (fallback) fallback.hidden = true;
     }
   }, []);
+  const [browsing, setBrowsing] = useState(() => isBrowsePage(location.search));
+  const focusBrowseSearch = useRef(false);
   const [panel, setPanel] = useState(() => { const product = products.find(p => p.id === new URLSearchParams(location.search).get('piece')); return product ? { type: 'product', product } : null; });
   const [filters, setFilters] = useState(() => readFilters(location.search));
   const [saved, setSaved] = useState(() => { try { const value = JSON.parse(localStorage.getItem('mablle-saved') || '[]'); return Array.isArray(value) ? value.filter(id => products.some(p => p.id === id)) : []; } catch { return []; } });
   const [announcement, setAnnouncement] = useState('');
   const jump = useSmoothScroll(Boolean(panel));
+  useEffect(() => { document.title = browsing ? 'Browse furniture — Mablle Interiors' : 'Mablle Interiors — Spaces with soul.'; }, [browsing]);
   useEffect(() => {
     // Warm the small dialog chunk on intent, before the click needs it.
     let warmed = false;
@@ -65,15 +70,34 @@ export default function App() {
   }, []);
   useEffect(() => { try { localStorage.setItem('mablle-saved', JSON.stringify(saved)); } catch { /* Browsing remains available when storage is disabled. */ } }, [saved]);
   useEffect(() => { const url = new URL(location.href); Object.entries(filters).forEach(([key, value]) => { if (value !== defaults[key]) url.searchParams.set(key, value); else url.searchParams.delete(key); }); history.replaceState(history.state, '', url); }, [filters]);
-  useEffect(() => { const restore = () => { setFilters(readFilters(location.search)); const product = products.find(p => p.id === new URLSearchParams(location.search).get('piece')); setPanel(product ? { type: 'product', product } : null); }; addEventListener('popstate', restore); return () => removeEventListener('popstate', restore); }, []);
+  useEffect(() => { const restore = () => { focusBrowseSearch.current = false; setBrowsing(isBrowsePage(location.search)); setFilters(readFilters(location.search)); const product = products.find(p => p.id === new URLSearchParams(location.search).get('piece')); setPanel(product ? { type: 'product', product } : null); }; addEventListener('popstate', restore); return () => removeEventListener('popstate', restore); }, []);
   const clearPieceURL = () => { const url = new URL(location.href); url.searchParams.delete('piece'); history.replaceState(history.state, '', url); };
   const close = () => { clearPieceURL(); setPanel(null); };
   const consult = (context = '', interest = 'Interior design') => { clearPieceURL(); setPanel({ type: 'inquiry', context: typeof context === 'string' ? context : '', interest }); };
   const inquire = (product, finish = 0, context = '') => consult(product ? `${product.name} · ${product.finishes[finish].name} · ${money(variantPrice(product, finish))}` : context, product ? 'A particular piece' : 'Interior design');
   const showProduct = (product, event) => { const origin = captureProductOrigin(event?.currentTarget); const url = new URL(location.href); url.searchParams.set('piece', product.id); history.pushState({}, '', url); setPanel({ type: 'product', product, origin }); };
   const toggleSave = id => { const name = products.find(p => p.id === id)?.name; setAnnouncement(`${name} ${saved.includes(id) ? 'removed from' : 'added to'} your saved pieces.`); setSaved(previous => previous.includes(id) ? previous.filter(x => x !== id) : [...previous, id]); };
-  const search = () => { jump('#collections'); document.querySelector('#product-search')?.focus({ preventScroll: true }); };
-  const browse = () => { close(); requestAnimationFrame(() => jump('#collections')); };
+  const search = () => {
+    if (browsing) { jump('#browse'); document.querySelector('#browse-query')?.focus({ preventScroll: true }); return; }
+    focusBrowseSearch.current = true;
+    history.pushState({}, '', browseURL(filters));
+    setPanel(null);
+    setBrowsing(true);
+  };
+  const browse = () => { close(); requestAnimationFrame(() => jump(browsing ? '#browse' : '#collections')); };
   const browseFromGuide = values => { setFilters(values); setAnnouncement('The collection now shows the pieces matched by your guide.'); jump('#collections'); document.querySelector('#collection-heading')?.focus({ preventScroll: true }); };
-  return <><a className="skip-link" href="#main">Skip to content</a><Header onSaved={() => setPanel({ type: 'saved' })} savedCount={saved.length} onSearch={search} onConsult={consult} /><main id="main"><Hero onConsult={consult} /><div className="brand-ribbon"><span>FURNITURE & OBJECTS</span><span className="ribbon-star">✳</span><span>INTERIORS WITH INTENTION</span><span className="ribbon-star">✳</span><span>MADE FOR EVERYDAY LIVING</span></div><Collection filters={filters} setFilters={setFilters} saved={saved} onSave={toggleSave} onProduct={showProduct} /><Services onConsult={consult} /><Guide onProduct={showProduct} onBrowse={browseFromGuide} onConsult={consult} /><Projects onProject={project => setPanel({ type: 'project', project })} onProduct={showProduct} onConsult={consult} /><Studio onConsult={consult} /><Contact /></main><Footer onConsult={consult} onInfo={() => setPanel({ type: 'info' })} /><p className="sr-only" aria-live="polite">{announcement}</p><Suspense fallback={panel ? <div className="loading-panel" role="status">Opening your inspiration…</div> : null}><AnimatePresence>{panel && <Overlay panel={panel} onClose={close} saved={saved} onSave={toggleSave} onProduct={showProduct} onInquire={inquire} onBrowse={browse} />}</AnimatePresence></Suspense></>;
+  return <>
+    <a className="skip-link" href="#main">Skip to content</a>
+    <Header key={browsing ? 'browse' : 'home'} browsing={browsing} onSaved={() => setPanel({ type: 'saved' })} savedCount={saved.length} onSearch={search} onConsult={consult} />
+    <main id="main">{browsing ? <BrowsePage filters={filters} setFilters={setFilters} saved={saved} onSave={toggleSave} onProduct={showProduct} onConsult={consult} focusSearch={focusBrowseSearch.current} /> : <>
+      <Hero onConsult={consult} />
+      <div className="brand-ribbon"><span>FURNITURE & OBJECTS</span><span className="ribbon-star">✳</span><span>INTERIORS WITH INTENTION</span><span className="ribbon-star">✳</span><span>MADE FOR EVERYDAY LIVING</span></div>
+      <Collection filters={filters} setFilters={setFilters} saved={saved} onSave={toggleSave} onProduct={showProduct} />
+      <Services onConsult={consult} /><Guide onProduct={showProduct} onBrowse={browseFromGuide} onConsult={consult} />
+      <Projects onProject={project => setPanel({ type: 'project', project })} onProduct={showProduct} onConsult={consult} /><Studio onConsult={consult} /><Contact />
+    </>}</main>
+    {!browsing && <Footer onConsult={consult} onInfo={() => setPanel({ type: 'info' })} />}
+    <p className="sr-only" aria-live="polite">{announcement}</p>
+    <Suspense fallback={panel ? <div className="loading-panel" role="status">Opening your inspiration…</div> : null}><AnimatePresence>{panel && <Overlay panel={panel} onClose={close} saved={saved} onSave={toggleSave} onProduct={showProduct} onInquire={inquire} onBrowse={browse} />}</AnimatePresence></Suspense>
+  </>;
 }

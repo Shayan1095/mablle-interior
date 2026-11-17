@@ -3,6 +3,7 @@ import manifest from './image-manifest.json';
 const sizes = {
   hero: '100vw',
   card: '(max-width: 370px) 90vw, (max-width: 760px) 44vw, 29vw',
+  browse: '(max-width: 370px) 90vw, (max-width: 760px) 44vw, (max-width: 1100px) 35vw, 24vw',
   editorial: '(max-width: 760px) 90vw, 44vw',
   detail: '(max-width: 760px) 90vw, 560px',
   thumb: '96px',

@@ -18,10 +18,18 @@ export function readFilters(search = '') {
   return values;
 }
 export function filterProducts(filters, source = products) {
-  const query = filters.q.trim().toLowerCase();
-  const result = source.filter(p => (!query || `${p.name} ${p.category} ${p.material}`.toLowerCase().includes(query)) && (filters.category === 'All pieces' || p.category === filters.category) && (filters.material === 'All materials' || p.material === filters.material) && (filters.budget === 'all' || p.price <= Number(filters.budget)));
+  const query = searchTerms(filters.q);
+  if (filters.q.trim() && !query.length) return [];
+  const result = source.filter(p => {
+    const searchable = searchTerms(`${p.name} ${p.category} ${p.material} ${p.finishes.map(finish => finish.name).join(' ')} ${searchTags[p.id] || ''}`).join(' ');
+    return query.every(term => searchable.includes(term)) && (filters.category === 'All pieces' || p.category === filters.category) && (filters.material === 'All materials' || p.material === filters.material) && (filters.budget === 'all' || p.price <= Number(filters.budget));
+  });
   if (filters.sort === 'low') result.sort((a, b) => a.price - b.price);
   if (filters.sort === 'high') result.sort((a, b) => b.price - a.price);
   return result;
 }
 export function variantPrice(product, finishIndex = 0) { return product.price + (product.finishes[finishIndex]?.extra || 0); }
+
+const searchTags = { 'sora-sofa': 'green living room', 'arc-chair': 'grey reading living room', 'alba-chair': 'cream bedroom', 'pebble-table': 'white bedside', 'form-lamp': 'black desk reading bedside', 'linea-dining': 'green dining room' };
+const aliases = { chairs: 'chair', armchair: 'chair', armchairs: 'chair', sofas: 'sofa', couch: 'sofa', couches: 'sofa', tables: 'table', lamps: 'lamp', wooden: 'wood', gray: 'grey' };
+function searchTerms(value) { return value.toLowerCase().trim().split(/[^\p{L}\p{N}]+/u).filter(Boolean).map(word => aliases[word] || word); }
